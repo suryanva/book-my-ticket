@@ -3,7 +3,6 @@ CREATE TABLE users (
     full_name VARCHAR(55) NOT NULL,
     email VARCHAR(322) UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    active_token TEXT,
     refresh_token TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
