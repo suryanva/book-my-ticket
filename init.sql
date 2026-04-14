@@ -1,7 +1,13 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL
+    full_name VARCHAR(55) NOT NULL,
+    email VARCHAR(322) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    active_token TEXT,
+    refresh_token TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
 );
 
 CREATE TABLE seats (
@@ -9,6 +15,17 @@ CREATE TABLE seats (
     name VARCHAR(255),
     isbooked INT DEFAULT 0,
     user_id INT REFERENCES users(id) -- This links seats to your new users table
+);
+
+CREATE TABLE bookings (
+    id SERIAL PRIMARY KEY,
+
+    user_id INT REFERENCES users(id) ON DELETE CASCADE,
+    seat_id INT REFERENCES seats(id) ON DELETE CASCADE,
+
+    status VARCHAR(20) DEFAULT 'CONFIRMED',
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 INSERT INTO seats (isbooked)
